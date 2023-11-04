@@ -49,5 +49,14 @@ class Solution:
             #check if the complement of the current number already 
             #exists as a key in our 'hashmap'
             if complement in hashmap:
-                
+                #if the complement is found in the hashmap then it means
+                #the current number and number at the index of the complement 
+                #in hashmap add up tp the target value
+                #So we return indices in a list 
                 return [i, hashmap[complement]]
+            #if the complement is not found, we add the current number and its index
+            #to the hashmap and contiue the loop
+            hashmap[nums[i]] = i
+solution = Solution()
+result = solution.twoSum([2, 7, 11, 15], 9)
+print(result)  # This would output: [0, 1] because nums[0] + nums[1] == 9
