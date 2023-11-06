@@ -60,3 +60,53 @@ class Solution:
 solution = Solution()
 result = solution.twoSum([2, 7, 11, 15], 9)
 print(result)  # This would output: [0, 1] because nums[0] + nums[1] == 9
+
+#================================================================================
+#Two-pass Hash Table Approach: 
+#Algorithm Exlplanation
+
+# 1) In the first pass through the array. we put each element and its index into 
+#a hash table
+
+# 2) In the second pass we look for each elements complement in the hash table
+# If we find it we have our solution: The index of the current element
+# and its complement 
+
+# 3) We need to ensure that we dont use the same element twice: the complement
+# must be a different element 
+
+#Time complexity Analysis:
+#The alogrithm has a time complexity of O(n): We go through the list of n elements
+#Twice: once to build the hash table and once to find the complement 
+#Because hash tables lookups are O(1) on average the over time complexity is O(n)
+
+#Space complexity: is O(n) we need a hash table that stores each of the n elements
+
+class Solution2: 
+    #nums accepts a list of integers and target accepts an integer value
+    #finally the funtion returns a list of integers
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        #First we create an empty dictionary(works as our hashmap)
+        hashmap = {}
+        #Next we are going to loop through list of integers in the 'nums' list
+        #storing each number as a key and its index ex: [0, 73] first value pair - 
+        #these values will be stored in the hashmap
+        
+        for i in range(len(nums)):
+            hashmap[nums[i]] = i
+            #In the second pass - we calculate what we need to add to each number to reach the target
+            #this the result of this calculation is the complement
+            for i in range(len(nums)):
+                complement = target - nums[i]
+                #We then check if the complement value is in the hash table and also make sure
+                #that it is not the same element we are looking at (we can use the same element twice)
+                if complement in hashmap and hashmap[complement] != i:
+                    #if the complement exists and it is different than the 
+                    #current element then we return a list containing the index values that add up to the target
+                    #basically these values are the current index and the index of the complemenet 
+                    return [i, hashmap[complement]]
+                
+solution2 = Solution2()
+result2 = solution2.twoSum([2, 7, 11, 15], 9)
+print(result2)
+
